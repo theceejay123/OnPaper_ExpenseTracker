@@ -4,6 +4,16 @@
     <ProjectReference Include="..\OnPaper.ExpenseTracker.Core\OnPaper.ExpenseTracker.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Config" />
+    <Folder Include="Data\Seed" />
+    <Folder Include="Services" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
