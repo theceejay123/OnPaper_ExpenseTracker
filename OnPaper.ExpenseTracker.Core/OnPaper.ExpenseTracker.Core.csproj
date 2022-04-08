@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Enums" />
-    <Folder Include="Models\Identity" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
   </ItemGroup>
 
 </Project>
