@@ -5,5 +5,5 @@ namespace OnPaper.ExpenseTracker.Core.Interfaces;
 public interface IUnitOfWork : IAsyncDisposable
 {
     IGenericRepository<T> Repository<T>() where T : BaseModel;
-    Task<int> Complete();
+    Task<int> CompleteAsync();
 }

@@ -6,7 +6,7 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Context;
 
 public class TransactionContext : DbContext
 {
-    public TransactionContext(DbContextOptions options) : base(options)
+    public TransactionContext(DbContextOptions<TransactionContext> options) : base(options)
     {
     }
     
