@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace OnPaper.ExpenseTracker.Core.Models;
 
 public class Transaction : BaseModel
@@ -8,6 +10,8 @@ public class Transaction : BaseModel
     public TransactionType TransactionType { get; set; }
     public Category Category { get; set; }
     public PaymentType PaymentType { get; set; }
+    [Required] public int WorkBookId { get; set; }
+    public WorkBook WorkBook { get; set; }
     public int TransactionTypeId { get; set; }
     public int CategoryId { get; set; }
     public int PaymentTypeId { get; set; }
