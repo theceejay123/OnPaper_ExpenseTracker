@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using OnPaper.ExpenseTracker.Core.Interfaces;
+using OnPaper.ExpenseTracker.Infrastructure.Data;
+using OnPaper.ExpenseTracker.Infrastructure.Services;
 using OnPaper.ExpenseTracker.WebApi.Errors;
 
 namespace OnPaper.ExpenseTracker.WebApi.Extensions;
@@ -7,6 +10,9 @@ public static class ApiServicesExtension
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services)
     {
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.Configure<ApiBehaviorOptions>(opt =>
         {
             opt.InvalidModelStateResponseFactory = actionContext =>
