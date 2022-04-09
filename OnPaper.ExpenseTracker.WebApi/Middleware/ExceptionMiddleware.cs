@@ -25,11 +25,11 @@ public class ExceptionMiddleware
         }
         catch (Exception e)
         {
-            _logger.LogError(e, e.Message);
+            _logger.LogError(e, "{Message}", e.Message);
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             var response = _env.IsDevelopment()
-                ? new ErrorException((int) HttpStatusCode.InternalServerError, e.Message, e.StackTrace.ToString())
+                ? new ErrorException((int) HttpStatusCode.InternalServerError, e.Message, e.StackTrace)
                 : new ErrorException((int) HttpStatusCode.InternalServerError);
             var options = new JsonSerializerOptions
             {

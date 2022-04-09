@@ -14,10 +14,10 @@ public class BaseSpecification<T> : ISpecification<T>
         Criteria = criteria;
     }
 
-    public Expression<Func<T, bool>> Criteria { get; }
+    public Expression<Func<T, bool>> Criteria { get; } = null!;
     public IList<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
-    public Expression<Func<T, object>> OrderByAsc { get; private set; }
-    public Expression<Func<T, object>> OrderByDesc { get; private set; }
+    public Expression<Func<T, object>> OrderByAsc { get; private set; } = null!;
+    public Expression<Func<T, object>> OrderByDesc { get; private set; } = null!;
     public int Take { get; private set; }
     public int Skip { get; private set; }
     public bool IsPagingEnabled { get; private set; }

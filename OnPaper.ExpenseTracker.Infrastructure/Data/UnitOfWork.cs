@@ -8,7 +8,7 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly TransactionContext _context;
-    private Hashtable _repositories;
+    private Hashtable _repositories = null!;
 
     public UnitOfWork(TransactionContext context)
     {
@@ -20,7 +20,7 @@ public class UnitOfWork : IUnitOfWork
         await _context.DisposeAsync();
     }
 
-    public IGenericRepository<T> Repository<T>() where T : BaseModel
+    public IGenericRepository<T>? Repository<T>() where T : BaseModel
     {
         if (_repositories == null)
         {
@@ -35,7 +35,7 @@ public class UnitOfWork : IUnitOfWork
             _repositories.Add(type, repoInstance);
         }
 
-        return (IGenericRepository<T>) _repositories[type];
+        return (IGenericRepository<T>?) _repositories[type];
     }
 
     public async Task<int> CompleteAsync()

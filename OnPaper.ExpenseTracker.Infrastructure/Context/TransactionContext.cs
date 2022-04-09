@@ -9,12 +9,12 @@ public class TransactionContext : DbContext
     public TransactionContext(DbContextOptions<TransactionContext> options) : base(options)
     {
     }
-    
-    public DbSet<WorkBook> WorkBooks { get; set; }
-    public DbSet<Transaction> Transactions { get; set; }
-    public DbSet<TransactionType> TransactionTypes { get; set; }
-    public DbSet<PaymentType> PaymentTypes { get; set; }
-    public DbSet<Category> Categories { get; set; }
+
+    public DbSet<WorkBook> WorkBooks => Set<WorkBook>();
+    public DbSet<Transaction> Transactions => Set<Transaction>();
+    public DbSet<TransactionType> TransactionTypes => Set<TransactionType>();
+    public DbSet<PaymentType> PaymentTypes => Set<PaymentType>();
+    public DbSet<Category> Categories => Set<Category>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

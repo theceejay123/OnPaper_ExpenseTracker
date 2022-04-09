@@ -8,5 +8,5 @@ public class ErrorValidation : ErrorResponse
     {
     }
     
-    public IEnumerable<string> Errors { get; set; }
+    public IEnumerable<string>? Errors { get; set; }
 }

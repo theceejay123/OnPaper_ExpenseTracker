@@ -2,7 +2,7 @@ namespace OnPaper.ExpenseTracker.WebApi.Errors;
 
 public class ErrorResponse
 {
-    public ErrorResponse(int statusId, string message = null)
+    public ErrorResponse(int statusId, string? message = null)
     {
         StatusId = statusId;
         Code = GetStatusCode(statusId);
@@ -10,10 +10,10 @@ public class ErrorResponse
     }
 
     public int StatusId { get; set; }
-    public string Code { get; set; }
-    public string Message { get; set; }
+    public string? Code { get; set; }
+    public string? Message { get; set; }
 
-    private string GetStatusCode(int statusId)
+    private string? GetStatusCode(int statusId)
     {
         return statusId switch
         {
@@ -30,7 +30,7 @@ public class ErrorResponse
         };
     }
 
-    private string GetDefaultErrorMessage(int statusId)
+    private string? GetDefaultErrorMessage(int statusId)
     {
         return statusId switch
         {
