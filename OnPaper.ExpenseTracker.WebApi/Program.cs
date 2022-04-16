@@ -1,3 +1,4 @@
+using AspNetCore.Hashids.Mvc;
 using HashidsNet;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,27 +12,40 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddDbContext<TransactionContext>(context => context.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppIdentityDbContext>(context => context.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection")));
 
-// Add services to the container.
-builder.Services.AddSingleton<IHashids>(_ => new Hashids(builder.Configuration.GetSection("HashIds:PepperKey").Value));
-builder.Services.AddDbContext<TransactionContext>(x => x.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddDbContext<AppIdentityDbContext>(x => x.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection")));
-builder.Services.AddApiServices();
+// Add services
+builder.Services.AddHashids(x =>
+{
+    x.Salt = builder.Configuration.GetSection("HashIds:PepperKey").Value;
+    x.MinHashLength = 11;
+});
+builder.Services.AddApiServices(builder.Configuration);
 builder.Services.AddIdentityDbServices(builder.Configuration);
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerServices();
 
-builder.Services.AddCors(opt =>
+builder.Services.AddCors(options =>
 {
-    opt.AddPolicy("CorsPolicy", p =>
+    options.AddPolicy("CorsPolicy", p =>
     {
         p.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
     });
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseSwaggerDocumentation();
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors("CorsPolicy");
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -48,31 +62,11 @@ using (var scope = app.Services.CreateScope())
         await identityContext.Database.MigrateAsync();
         await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
     }
-    catch (Exception e)
+    catch (Exception ex)
     {
         var logger = loggerFactory.CreateLogger<Program>();
-        logger.LogError(e, "An error occured during migration.");
+        logger.LogError(ex, "An error occured during migrations.");
     }
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
-
-app.UseSwaggerDocumentation();
-
-app.UseStatusCodePagesWithReExecute("/errors/{0}");
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-app.UseCors("CorsPolicy");
-
-app.UseAuthentication();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.MapFallbackToController("Index", "Fallback");
-
-await app.RunAsync();
+app.Run();

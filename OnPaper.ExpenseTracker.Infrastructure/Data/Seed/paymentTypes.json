@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Cash",
+    "Description": "Currency"
+  },
+  {
+    "Name": "Check",
+    "Description": "Check Number"
+  },
+  {
+    "Name": "Card",
+    "Description": "Debit or Credit Card"
+  }
+]

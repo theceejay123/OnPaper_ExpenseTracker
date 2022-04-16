@@ -16,7 +16,5 @@ public class Transaction : BaseModel
     public int CategoryId { get; set; }
     public int PaymentTypeId { get; set; }
     public DateTime CreateDate { get; set; }
-    public string CreateUser { get; set; } = string.Empty;
-    public DateTime UpdateDate { get; set; }
-    public string UpdateUser { get; set; } = string.Empty;
+    public DateTime? UpdateDate { get; set; }
 }
