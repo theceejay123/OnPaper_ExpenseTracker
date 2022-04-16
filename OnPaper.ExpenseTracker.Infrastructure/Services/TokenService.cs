@@ -1,6 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using OnPaper.ExpenseTracker.Core.Interfaces;
@@ -11,29 +10,34 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Services;
 public class TokenService : ITokenService
 {
     private readonly IConfiguration _configuration;
-    private readonly SymmetricSecurityKey _key;
+    private readonly ECDsaSecurityKey _key;
 
-    public TokenService(IConfiguration configuration)
+    public TokenService(IConfiguration configuration, IGenerateTokenKeyService tokenKeyService)
     {
         _configuration = configuration;
-        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:SecurityKey"]));
+        _key = tokenKeyService.GetGeneratedECDsaSecurityKey();
     }
 
     public string CreateToken(AppUser user)
     {
         var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.GivenName, user.DisplayName)
+            new("email", user.Email),
+            new("preferred_name", user.DisplayName),
+            new("user_id", user.Id)
         };
 
+        var dateTimeNow = DateTime.Now;
         var credentials = new SigningCredentials(_key, SecurityAlgorithms.EcdsaSha256);
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(3),
+            Expires = dateTimeNow.AddDays(3),
+            NotBefore = dateTimeNow,
             SigningCredentials = credentials,
-            Issuer = _configuration["Tokens:Issuer"]
+            Issuer = _configuration["Tokens:Issuer"],
+            IssuedAt = dateTimeNow.ToUniversalTime(),
+            Audience = _configuration["Tokens:Audience"]
         };
 
         var handler = new JwtSecurityTokenHandler();

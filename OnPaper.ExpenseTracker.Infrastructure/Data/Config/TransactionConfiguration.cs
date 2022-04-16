@@ -14,5 +14,6 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
         builder.HasOne(p => p.PaymentType).WithMany().HasForeignKey(p => p.PaymentTypeId);
         builder.HasOne(p => p.TransactionType).WithMany().HasForeignKey(p => p.TransactionTypeId);
         builder.HasOne(p => p.Category).WithMany().HasForeignKey(p => p.CategoryId);
+        builder.Property(p => p.CreateDate).HasDefaultValueSql("NOW()").ValueGeneratedOnAdd();
     }
 }

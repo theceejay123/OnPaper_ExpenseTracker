@@ -1,4 +1,4 @@
-using System.Text;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -16,18 +16,37 @@ public static class IdentityDbServicesExtensions
         builder.AddEntityFrameworkStores<AppIdentityDbContext>();
         builder.AddSignInManager<SignInManager<AppUser>>();
 
+        var tokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = GetECDsaSecurityKey(),
+            ValidIssuer = config["Tokens:Issuer"],
+            ValidAudiences = new []
+            {
+                config["Tokens:Issuer"], 
+                config["Tokens:Audience"]
+            },
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ClockSkew = TimeSpan.Zero
+        };
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
         {
-            options.TokenValidationParameters = new TokenValidationParameters()
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Tokens:SecurityKey"])),
-                ValidIssuer = config["Tokens:Issuer"],
-                ValidateIssuer = true,
-                ValidateAudience = true
-            };
+            options.TokenValidationParameters = tokenValidationParameters;
+            options.TokenValidationParameters.ValidTypes = new[] {"JWT"};
+            options.TokenValidationParameters.ValidAlgorithms = new[] {"ES256"};
+            options.Validate();
         });
 
         return services;
+    }
+
+    private static ECDsaSecurityKey GetECDsaSecurityKey()
+    {
+        var privateKey = File.ReadAllText("../../_keys/private_key.pem");
+        var generatedEcdsa = ECDsa.Create();
+        generatedEcdsa.ImportFromPem(privateKey);
+        return new ECDsaSecurityKey(generatedEcdsa);
     }
 }

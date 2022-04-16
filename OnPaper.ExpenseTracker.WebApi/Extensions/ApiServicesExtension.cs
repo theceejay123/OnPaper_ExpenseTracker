@@ -1,3 +1,4 @@
+using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
 using OnPaper.ExpenseTracker.Core.Interfaces;
 using OnPaper.ExpenseTracker.Infrastructure.Data;
@@ -8,8 +9,13 @@ namespace OnPaper.ExpenseTracker.WebApi.Extensions;
 
 public static class ApiServicesExtension
 {
-    public static IServiceCollection AddApiServices(this IServiceCollection services)
+    public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddSingleton<IGenerateTokenKeyService>(_ => new GenerateTokenKeyService());
+        services.AddScoped<IWorkBookService, WorkBookService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+        services.AddScoped<ITransactionTypeService, TransactionTypeService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

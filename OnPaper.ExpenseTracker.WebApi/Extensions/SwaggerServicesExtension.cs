@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using OnPaper.ExpenseTracker.WebApi.Helpers;
 
 namespace OnPaper.ExpenseTracker.WebApi.Extensions;
 
@@ -8,6 +9,7 @@ public static class SwaggerServicesExtension
     {
         services.AddSwaggerGen(gen =>
         {
+            gen.OperationFilter<HashIdsFilters>();
             gen.SwaggerDoc("v1", new OpenApiInfo() {Title = "WebAPIv6", Version = "v1"});
             var securityScheme = new OpenApiSecurityScheme
             {
