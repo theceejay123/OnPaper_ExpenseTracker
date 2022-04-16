@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnPaper.ExpenseTracker.Infrastructure.Context;
@@ -12,14 +11,13 @@ using OnPaper.ExpenseTracker.Infrastructure.Context;
 namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TransactionContext))]
-    [Migration("20220407023011_InitialCreate")]
-    partial class InitialCreate
+    partial class TransactionContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -77,11 +75,9 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("CreateUser")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -97,12 +93,8 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                     b.Property<int>("TransactionTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdateDate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UpdateUser")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int>("WorkBookId")
                         .HasColumnType("integer");
@@ -155,8 +147,8 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -166,10 +158,8 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

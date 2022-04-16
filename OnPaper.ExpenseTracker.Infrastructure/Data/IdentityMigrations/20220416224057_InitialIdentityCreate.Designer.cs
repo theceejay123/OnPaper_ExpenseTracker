@@ -12,14 +12,14 @@ using OnPaper.ExpenseTracker.Infrastructure.Context;
 namespace OnPaper.ExpenseTracker.Infrastructure.Data.IdentityMigrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20220407023020_InitialIdentityCreate")]
+    [Migration("20220416224057_InitialIdentityCreate")]
     partial class InitialIdentityCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);

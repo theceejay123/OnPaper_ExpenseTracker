@@ -60,8 +60,8 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                     AppUserId = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()"),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "NOW()"),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,10 +81,8 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                     TransactionTypeId = table.Column<int>(type: "integer", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
                     PaymentTypeId = table.Column<int>(type: "integer", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreateUser = table.Column<string>(type: "text", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateUser = table.Column<string>(type: "text", nullable: false)
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
