@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Expense",
+    "Description": "Personal Expense"
+  },
+  {
+    "Name": "Income",
+    "Description": "Personal Income"
+  },
+  {
+    "Name": "Transfer",
+    "Description": "E-Transfer"
+  }
+]
