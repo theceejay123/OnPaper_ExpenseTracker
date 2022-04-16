@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Mime;
 using AspNetCore.Hashids.Mvc;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,8 @@ namespace OnPaper.ExpenseTracker.WebApi.Controllers;
 
 [Authorize]
 [ProducesResponseType(StatusCodes.Status200OK)]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
 public class WorkBooksController : BaseWebApiController
 {
     private readonly IWorkBookService _workBookService;

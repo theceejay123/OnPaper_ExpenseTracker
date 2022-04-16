@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Mime;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,9 @@ using OnPaper.ExpenseTracker.WebApi.Errors;
 
 namespace OnPaper.ExpenseTracker.WebApi.Controllers;
 
+[ProducesResponseType(StatusCodes.Status200OK)]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
 public class CategoriesController : BaseWebApiController
 {
     private readonly ICategoryService _categoryService;

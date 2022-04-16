@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnPaper.ExpenseTracker.Core.Interfaces;
@@ -7,6 +8,9 @@ using OnPaper.ExpenseTracker.WebApi.Errors;
 
 namespace OnPaper.ExpenseTracker.WebApi.Controllers;
 
+[ProducesResponseType(StatusCodes.Status200OK)]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
 public class AccountsController : BaseWebApiController
 {
     private readonly UserManager<AppUser> _userManager;
