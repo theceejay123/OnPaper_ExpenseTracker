@@ -12,7 +12,6 @@ namespace OnPaper.ExpenseTracker.WebApi.Controllers;
 
 [ProducesResponseType(StatusCodes.Status200OK)]
 [Produces(MediaTypeNames.Application.Json)]
-[Consumes(MediaTypeNames.Application.Json)]
 public class PaymentTypesController : BaseWebApiController
 {
     private readonly IPaymentTypeService _paymentTypeService;

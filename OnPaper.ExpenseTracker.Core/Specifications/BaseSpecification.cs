@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Query;
 using OnPaper.ExpenseTracker.Core.Interfaces;
 
 namespace OnPaper.ExpenseTracker.Core.Specifications;
@@ -15,14 +16,14 @@ public class BaseSpecification<T> : ISpecification<T>
     }
 
     public Expression<Func<T, bool>> Criteria { get; } = null!;
-    public IList<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
+    public IList<Func<IQueryable<T>, IIncludableQueryable<T, object>>> Includes { get; } = new List<Func<IQueryable<T>, IIncludableQueryable<T, object>>>();
     public Expression<Func<T, object>> OrderByAsc { get; private set; } = null!;
     public Expression<Func<T, object>> OrderByDesc { get; private set; } = null!;
     public int Take { get; private set; }
     public int Skip { get; private set; }
     public bool IsPagingEnabled { get; private set; }
 
-    protected void AddInclude(Expression<Func<T, object>> includeExpression)
+    protected void AddInclude(Func<IQueryable<T>, IIncludableQueryable<T, object>> includeExpression)
     {
         Includes.Add(includeExpression);
     }

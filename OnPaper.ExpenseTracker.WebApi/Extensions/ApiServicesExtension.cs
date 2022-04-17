@@ -12,6 +12,7 @@ public static class ApiServicesExtension
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<IGenerateTokenKeyService>(_ => new GenerateTokenKeyService());
+        services.AddScoped<ITransactionService, TransactionService>();
         services.AddScoped<IWorkBookService, WorkBookService>();
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IPaymentTypeService, PaymentTypeService>();

@@ -45,6 +45,7 @@ public class WorkBookService : IWorkBookService
 
     public async Task<WorkBook> CreateWorkBookAsync(WorkBook workBook)
     {        
+        workBook.UpdateDate = DateTime.UtcNow;
         _unitOfWork.Repository<WorkBook>().Create(workBook);
         var result = await _unitOfWork.CompleteAsync();
         return result <= 0 ? null : workBook;

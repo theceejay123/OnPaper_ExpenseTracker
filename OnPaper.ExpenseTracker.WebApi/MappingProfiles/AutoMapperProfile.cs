@@ -12,5 +12,10 @@ public class AutoMapperProfile : Profile
         CreateMap<PaymentType, PaymentTypeDTO>().ReverseMap();
         CreateMap<Category, CategoryDTO>().ReverseMap();
         CreateMap<WorkBook, WorkBookDTO>().ReverseMap();
+        CreateMap<Transaction, TransactionResponseDTO>()
+            .ForMember(d => d.PaymentType, opts => opts.MapFrom(s => s.PaymentType.Name))
+            .ForMember(d => d.Category, opts => opts.MapFrom(s => s.Category.Name))
+            .ForMember(d => d.TransactionType, opts => opts.MapFrom(s => s.TransactionType.Name));
+        CreateMap<Transaction, TransactionDTO>().ReverseMap();
     }
 }

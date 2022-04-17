@@ -19,7 +19,7 @@ public class SpecificationEvaluator<T> where T : BaseModel
         }
         query = specification.Includes.Aggregate(
             query,
-            (currentModel, IncludeExpression) => currentModel.Include(IncludeExpression)
+            (currentModel, IncludeExpression) => IncludeExpression(currentModel)
         );
         return query;
     }

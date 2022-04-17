@@ -15,7 +15,6 @@ namespace OnPaper.ExpenseTracker.WebApi.Controllers;
 [Authorize]
 [ProducesResponseType(StatusCodes.Status200OK)]
 [Produces(MediaTypeNames.Application.Json)]
-[Consumes(MediaTypeNames.Application.Json)]
 public class WorkBooksController : BaseWebApiController
 {
     private readonly IWorkBookService _workBookService;
@@ -50,9 +49,9 @@ public class WorkBooksController : BaseWebApiController
     }
 
     [HttpPost]
-    public async Task<ActionResult<WorkBookDTO>> CreateWorkBook(WorkBookDTO workBookDTO)
+    public async Task<ActionResult<WorkBookDTO>> CreateWorkBook(WorkBookDTO workBookDto)
     {
-        var workBook = _mapper.Map<WorkBook>(workBookDTO);
+        var workBook = _mapper.Map<WorkBook>(workBookDto);
         workBook.AppUserId = HttpContext.User.GetUserIdFromClaimsPrincipal();
         var result = await _workBookService.CreateWorkBookAsync(workBook);
         if (result == null)
