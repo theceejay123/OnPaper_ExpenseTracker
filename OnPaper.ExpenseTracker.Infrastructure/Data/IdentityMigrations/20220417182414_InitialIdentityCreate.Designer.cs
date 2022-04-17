@@ -12,7 +12,7 @@ using OnPaper.ExpenseTracker.Infrastructure.Context;
 namespace OnPaper.ExpenseTracker.Infrastructure.Data.IdentityMigrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20220416224057_InitialIdentityCreate")]
+    [Migration("20220417182414_InitialIdentityCreate")]
     partial class InitialIdentityCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

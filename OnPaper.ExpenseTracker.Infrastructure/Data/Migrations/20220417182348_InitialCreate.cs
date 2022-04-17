@@ -60,8 +60,8 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                     AppUserId = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "NOW()"),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValueSql: "NOW()")
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
                     PaymentTypeId = table.Column<int>(type: "integer", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValueSql: "NOW()")
                 },
                 constraints: table =>
                 {

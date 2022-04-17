@@ -49,7 +49,6 @@ public class TransactionService : ITransactionService
 
     public async Task<Transaction> CreateTransactionAsync(Transaction transaction)
     {
-        transaction.UpdateDate = DateTime.UtcNow;
         _unitOfWork.Repository<Transaction>().Create(transaction);
         var result = await _unitOfWork.CompleteAsync();
         return result <= 0 ? null : await GetTransactionByIdAsync(transaction.Id, transaction.WorkBookId);

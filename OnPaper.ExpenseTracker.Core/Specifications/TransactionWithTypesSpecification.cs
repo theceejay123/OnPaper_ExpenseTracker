@@ -11,6 +11,7 @@ public class TransactionWithTypesSpecification : BaseSpecification<Transaction>
         AddInclude(x => x.Include(e => e.PaymentType));
         AddInclude(x => x.Include(e => e.Category)); 
         AddInclude(x => x.Include(e => e.TransactionType));
+        AddOrderByDesc(x => x.UpdateDate);
     }
 
     public TransactionWithTypesSpecification(int workBookId)
@@ -19,5 +20,6 @@ public class TransactionWithTypesSpecification : BaseSpecification<Transaction>
         AddInclude(x => x.Include(e => e.PaymentType));
         AddInclude(x => x.Include(e => e.Category)); 
         AddInclude(x => x.Include(e => e.TransactionType));
+        AddOrderByDesc(x => x.UpdateDate);
     }
 }

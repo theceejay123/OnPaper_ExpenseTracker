@@ -94,7 +94,9 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
 
                     b.Property<int>("WorkBookId")
                         .HasColumnType("integer");
@@ -147,7 +149,7 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("Description")
@@ -159,7 +161,9 @@ namespace OnPaper.ExpenseTracker.Infrastructure.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
 
                     b.HasKey("Id");
 
