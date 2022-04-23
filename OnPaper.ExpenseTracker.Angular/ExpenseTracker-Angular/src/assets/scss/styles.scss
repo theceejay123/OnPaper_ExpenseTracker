@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+@import "vendors/__vendor-dir";
+@import "abstracts/_abstracts-dir";
+@import "base/_base-dir";
+@import "components/_components-dir";
+@import "layouts/_layouts-dir";

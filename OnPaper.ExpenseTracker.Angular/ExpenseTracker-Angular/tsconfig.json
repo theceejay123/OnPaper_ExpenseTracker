@@ -18,10 +18,17 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ]
+    "lib": ["es2020", "dom"],
+    "paths": {
+      "@models/*": ["src/app/models/*"],
+      "@models": ["src/app/models/index.ts"],
+      "@core/*": ["src/app/core/*"],
+      "@core": ["src/app/core/index.ts"],
+      "@shared/*": ["src/app/shared/*"],
+      "@shared": ["src/app/shared/index.ts"],
+      "@modules/*": ["src/app/modules/*"],
+      "@modules": ["src/app/modules/index.ts"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

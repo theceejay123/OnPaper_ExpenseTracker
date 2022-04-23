@@ -1,0 +1,35 @@
+html,
+body {
+  font-family: $nunito, Fallback, sans-serif;
+  font-weight: 400;
+  line-height: $baseLineHeight;
+  font-size: 14px;
+
+  @media only screen and (min-width: $breakpoint-small) {
+    font-size: 15px;
+  }
+
+  @media only screen and (min-width: $breakpoint-large) {
+    font-size: $baseFontSize;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: $pad-1;
+  line-height: $headerLineHeight;
+
+  a {
+    font-weight: inherit;
+  }
+}
+
+p {
+  margin-bottom: $pad-1;
+}
